@@ -50,10 +50,12 @@ async def process_annotation(file, annotations):
         width, height = image.size
 
         # 在图片上画矩形框并标注文字
-        for word in annotations['words']:
+        for key, word in enumerate(annotations['words']):
             old_text = word['old']
             new_text = word['new']
             location = word['location']
+
+            draw_text = str((key+1)) + ". " + new_text
 
             rectangle_height = (location[3][1] - location[0][1])
 
@@ -62,19 +64,21 @@ async def process_annotation(file, annotations):
             bottom_right = (location[2][0], location[2][1])
             text_location = (location[0][0], location[2][1])
             draw.rectangle([top_left, bottom_right], outline='blue', width=2)
-            draw.text(text_location, new_text, font=font, fill='blue')
+            draw.text(text_location, draw_text, font=font, fill='blue')
 
-        for sentence in annotations['sentences']:
+        for key, sentence in enumerate(annotations['sentences']):
             old_text = sentence['old']
             new_text = sentence['new']
             location = sentence['location']
+
+            draw_text = str((key + 1)) + ". " + new_text
 
             # 计算位置
             top_left = (location[0][0], location[0][1])
             bottom_right = (location[2][0], location[2][1])
             text_location = (location[0][0], location[2][1])
             draw.rectangle([top_left, bottom_right], outline='red', width=2)
-            draw.text(text_location, new_text, font=font, fill='red')
+            draw.text(text_location, draw_text, font=font, fill='red')
 
         # Save annotated image
         annotated_image_name = f"{uuid.uuid4()}.jpg"
