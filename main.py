@@ -10,7 +10,7 @@ from views import upload_router
 app = FastAPI()
 
 # Include routers from views
-app.include_router(health_router, prefix="")
+app.include_router(health_router, prefix="/ielts")
 app.include_router(ocr_router, prefix="/ielts/ocr", tags=["OCR"])
 app.include_router(annotate_router, prefix="/ielts/annotate", tags=["Annotate"])
 app.include_router(pdf_router, prefix="/ielts/pdf", tags=["PDF"])
