@@ -107,6 +107,6 @@ async def process_annotation(file, annotations):
 
         # return FileResponse(annotated_image_path, media_type="image/jpeg")
         # Return the URL to access the image
-        return {"url": f"/uploads/new/{annotated_image_name}"}
+        return {"url": f"/ielts/uploads/new/{annotated_image_name}"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
