@@ -11,6 +11,8 @@ use_gpu = is_compiled_with_cuda()
 # 初始化 PaddleOCR
 ocr = PaddleOCR(use_angle_cls=True, lang='en', use_gpu=use_gpu)
 
+os.makedirs("uploads/raw", exist_ok=True)
+
 async def process_ocr(file):
     try:
         # 保存上传的文件

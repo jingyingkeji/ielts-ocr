@@ -4,6 +4,8 @@ from PIL import Image, ImageDraw, ImageFont
 from fastapi.responses import FileResponse
 from fastapi import HTTPException
 
+os.makedirs("uploads/new", exist_ok=True)
+
 async def process_annotation(file, annotations):
     try:
 
@@ -71,13 +73,16 @@ async def process_annotation(file, annotations):
             draw.text(top_left, new_text, font=font, fill='red')
 
         # Save annotated image
-        annotated_image_path = f"uploads/new/{uuid.uuid4()}.jpg"
+        annotated_image_name = f"{uuid.uuid4()}.jpg"
+        annotated_image_path = f"uploads/new/{annotated_image_name}"
         image = image.convert("RGB")
         image.save(annotated_image_path)
 
         # Remove temporary file
         os.remove(file_location)
 
-        return FileResponse(annotated_image_path, media_type="image/jpeg")
+        #return FileResponse(annotated_image_path, media_type="image/jpeg")
+        # Return the URL to access the image
+        return {"url": f"/uploads/new/{annotated_image_name}"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
