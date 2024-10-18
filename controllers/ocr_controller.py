@@ -24,6 +24,6 @@ async def process_ocr(file):
         # 删除临时文件
         #os.remove(file_location)
 
-        return {"ocr_result": result}
+        return {"result": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
