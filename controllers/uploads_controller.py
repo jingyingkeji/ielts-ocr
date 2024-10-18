@@ -16,6 +16,6 @@ async def save_uploaded_image(file: UploadFile):
         with open(file_location, "wb+") as file_object:
             file_object.write(file.file.read())
 
-        return {"filename": file_name, "url": f"/uploads/images/{file_name}"}
+        return {"filename": file_name, "url": f"/ielts/uploads/images/{file_name}"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error saving file: {e}")
