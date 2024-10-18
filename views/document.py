@@ -9,19 +9,19 @@ router = APIRouter()
 
 
 @router.post("/parse")
-async def parse_document(url: str = Form(..., description="URL of the PDF or Word document")):
+async def parse_document(resume_url: str = Form(..., description="URL of the PDF or Word document")):
     try:
         print("------------")
-        print(url)
+        print(resume_url)
         # 下载文件
-        response = requests.get(url)
+        response = requests.get(resume_url)
 
         response.raise_for_status()  # 检查请求是否成功
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=400, detail=f"Error downloading file: {e}")
 
     # 获取文件MIME类型
-    mime_type, _ = guess_type(url)
+    mime_type, _ = guess_type(resume_url)
 
     if mime_type == 'application/pdf':
         content = await extract_text_from_pdf(BytesIO(response.content))
