@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Form
 from controllers.document_controller import extract_text_from_pdf, extract_text_from_word
 import requests
 from mimetypes import guess_type
@@ -8,11 +8,14 @@ from mimetypes import guess_type
 router = APIRouter()
 
 
-@router.post("/parse/")
-async def parse_document(url: str = Query(..., description="URL of the PDF or Word document")):
+@router.post("/parse")
+async def parse_document(url: str = Form(..., description="URL of the PDF or Word document")):
     try:
+        print("------------")
+        print(url)
         # 下载文件
         response = requests.get(url)
+
         response.raise_for_status()  # 检查请求是否成功
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=400, detail=f"Error downloading file: {e}")
