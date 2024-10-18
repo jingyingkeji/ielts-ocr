@@ -65,9 +65,13 @@ async def process_annotation(file, annotations):
 
             # 计算位置
             top_left = (location[0][0], location[0][1])
+            bottom_left = (location[3][0], location[3][1])
             bottom_right = (location[2][0], location[2][1])
 
-            draw.rectangle([top_left, bottom_right], outline='blue', width=2)
+            # 画框
+            #draw.rectangle([top_left, bottom_right], outline='blue', width=2)
+            # 划线
+            draw.line([bottom_left, bottom_right], fill='blue', width=2)
             draw.text(text_location, draw_text, font=font, fill='blue')
 
         for key, sentence in enumerate(annotations['sentences']):
@@ -83,9 +87,13 @@ async def process_annotation(file, annotations):
 
             # 计算位置
             top_left = (location[0][0], location[0][1])
+            bottom_left = (location[3][0], location[3][1])
             bottom_right = (location[2][0], location[2][1])
 
-            draw.rectangle([top_left, bottom_right], outline='red', width=2)
+            # 画框
+            #draw.rectangle([top_left, bottom_right], outline='red', width=2)
+            # 划线
+            draw.line([bottom_left, bottom_right], fill='blue', width=2)
             draw.text(text_location, draw_text, font=font, fill='red')
 
         # Save annotated image
