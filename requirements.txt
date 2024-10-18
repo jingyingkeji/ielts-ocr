@@ -6,4 +6,5 @@ paddleocr
 pillow
 pdfplumber
 docx
+wget
 python-multipart

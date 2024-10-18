@@ -1,6 +1,7 @@
 import os
 import uuid
 import requests
+import wget
 
 from fastapi import HTTPException
 from paddle import is_compiled_with_cuda
@@ -19,14 +20,12 @@ async def process_url_ocr(image_url: str):
     try:
         # Download the image from the URL
         print(image_url)
-        response = requests.get(image_url, timeout=30)
-        print("-------")
-        response.raise_for_status()  # Raise an error for bad responses
-
-        # Save the downloaded image to a local file
+        # Generate a unique file path
         file_location = f"uploads/raw/{uuid.uuid4()}.png"
-        with open(file_location, "wb") as file_object:
-            file_object.write(response.content)
+
+        # Download the image using wget
+        wget.download(image_url, file_location)
+        print(f"Image successfully downloaded to {file_location}")
 
         # Perform OCR on the saved image
         result = ocr.ocr(file_location)
