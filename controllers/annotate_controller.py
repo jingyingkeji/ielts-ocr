@@ -44,7 +44,7 @@ async def process_annotation(file, annotations):
 
         # Set font and size
         font_path = "static/fonts/Sriracha.ttf"  # Adjust path as necessary
-        font = ImageFont.truetype(font_path, 24)
+        font = ImageFont.truetype(font_path, 16)
 
         # Get image dimensions
         width, height = image.size
