@@ -61,7 +61,7 @@ async def process_annotation(file, annotations):
 
             rectangle_height = (location[3][1] - location[0][1])
             font_diff = (rectangle_height / font_size)
-            text_location = (location[0][0], location[2][1] - font_diff)
+            text_location = (location[0][0], location[2][1] - font_diff*2)
 
             # 计算位置
             top_left = (location[0][0], location[0][1])
@@ -79,7 +79,7 @@ async def process_annotation(file, annotations):
 
             rectangle_height = (location[3][1] - location[0][1])
             font_diff = (rectangle_height / font_size)
-            text_location = (location[0][0], location[2][1] - font_diff)
+            text_location = (location[0][0], location[2][1] - font_diff*2)
 
             # 计算位置
             top_left = (location[0][0], location[0][1])
