@@ -1,10 +1,11 @@
 import os
 import uuid
+
 from PIL import Image, ImageDraw, ImageFont
-from fastapi.responses import FileResponse
 from fastapi import HTTPException
 
 os.makedirs("uploads/new", exist_ok=True)
+
 
 async def process_annotation(file, annotations):
     try:
@@ -44,7 +45,8 @@ async def process_annotation(file, annotations):
 
         # Set font and size
         font_path = "static/fonts/Sriracha.ttf"  # Adjust path as necessary
-        font = ImageFont.truetype(font_path, 16)
+        font_size = 16
+        font = ImageFont.truetype(font_path, font_size)
 
         # Get image dimensions
         width, height = image.size
@@ -55,14 +57,16 @@ async def process_annotation(file, annotations):
             new_text = word['new']
             location = word['location']
 
-            draw_text = str((key+1)) + ". " + new_text
+            draw_text = str((key + 1)) + ". " + new_text
 
             rectangle_height = (location[3][1] - location[0][1])
+            font_diff = (rectangle_height / font_size)
+            text_location = (location[0][0], location[2][1] - font_diff)
 
             # 计算位置
             top_left = (location[0][0], location[0][1])
             bottom_right = (location[2][0], location[2][1])
-            text_location = (location[0][0], location[2][1])
+
             draw.rectangle([top_left, bottom_right], outline='blue', width=2)
             draw.text(text_location, draw_text, font=font, fill='blue')
 
@@ -73,10 +77,14 @@ async def process_annotation(file, annotations):
 
             draw_text = str((key + 1)) + ". " + new_text
 
+            rectangle_height = (location[3][1] - location[0][1])
+            font_diff = (rectangle_height / font_size)
+            text_location = (location[0][0], location[2][1] - font_diff)
+
             # 计算位置
             top_left = (location[0][0], location[0][1])
             bottom_right = (location[2][0], location[2][1])
-            text_location = (location[0][0], location[2][1])
+
             draw.rectangle([top_left, bottom_right], outline='red', width=2)
             draw.text(text_location, draw_text, font=font, fill='red')
 
@@ -89,7 +97,7 @@ async def process_annotation(file, annotations):
         # Remove temporary file
         os.remove(file_location)
 
-        #return FileResponse(annotated_image_path, media_type="image/jpeg")
+        # return FileResponse(annotated_image_path, media_type="image/jpeg")
         # Return the URL to access the image
         return {"url": f"/uploads/new/{annotated_image_name}"}
     except Exception as e:
