@@ -44,7 +44,7 @@ async def process_annotation(file, annotations):
 
         # Set font and size
         font_path = "static/fonts/Sriracha.ttf"  # Adjust path as necessary
-        font = ImageFont.truetype(font_path, 12)
+        font = ImageFont.truetype(font_path, 16)
 
         # Get image dimensions
         width, height = image.size
@@ -55,11 +55,13 @@ async def process_annotation(file, annotations):
             new_text = word['new']
             location = word['location']
 
+            rectangle_height = (location[3][1] - location[0][1])
+
             # 计算位置
             top_left = (location[0][0], location[0][1])
             bottom_right = (location[2][0], location[2][1])
             draw.rectangle([top_left, bottom_right], outline='blue', width=2)
-            draw.text(top_left, new_text, font=font, fill='blue')
+            draw.text(bottom_right, new_text, font=font, fill='blue')
 
         for sentence in annotations['sentences']:
             old_text = sentence['old']
@@ -70,7 +72,7 @@ async def process_annotation(file, annotations):
             top_left = (location[0][0], location[0][1])
             bottom_right = (location[2][0], location[2][1])
             draw.rectangle([top_left, bottom_right], outline='red', width=2)
-            draw.text(top_left, new_text, font=font, fill='red')
+            draw.text(bottom_right, new_text, font=font, fill='red')
 
         # Save annotated image
         annotated_image_name = f"{uuid.uuid4()}.jpg"
