@@ -5,4 +5,5 @@ paddlepaddle-gpu
 paddleocr
 pillow
 pdfplumber
+docx
 python-multipart
