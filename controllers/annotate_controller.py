@@ -71,7 +71,7 @@ async def process_annotation(file, annotations):
             # 画框
             #draw.rectangle([top_left, bottom_right], outline='blue', width=2)
             # 划线
-            draw.line([bottom_left, bottom_right], fill='blue', width=2)
+            draw.line([bottom_left, bottom_right], fill='blue', width=3)
             draw.text(text_location, draw_text, font=font, fill='blue')
 
         for key, sentence in enumerate(annotations['sentences']):
@@ -93,7 +93,7 @@ async def process_annotation(file, annotations):
             # 画框
             #draw.rectangle([top_left, bottom_right], outline='red', width=2)
             # 划线
-            draw.line([bottom_left, bottom_right], fill='blue', width=2)
+            draw.line([bottom_left, bottom_right], fill='red', width=3)
             draw.text(text_location, draw_text, font=font, fill='red')
 
         # Save annotated image
