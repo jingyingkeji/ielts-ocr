@@ -3,4 +3,5 @@ uvicorn
 paddlepaddle-gpu
 paddleocr
 pillow
+pdfplumber
 python-multipart
