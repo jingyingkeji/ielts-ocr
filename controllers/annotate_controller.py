@@ -71,7 +71,7 @@ async def process_annotation(file, annotations):
             draw.text(top_left, new_text, font=font, fill='red')
 
         # Save annotated image
-        annotated_image_path = f"temp/{uuid.uuid4()}.jpg"
+        annotated_image_path = f"uploads/new/{uuid.uuid4()}.jpg"
         image = image.convert("RGB")
         image.save(annotated_image_path)
 
