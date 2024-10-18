@@ -18,7 +18,9 @@ os.makedirs("uploads/raw", exist_ok=True)
 async def process_url_ocr(image_url: str):
     try:
         # Download the image from the URL
-        response = requests.get(image_url)
+        print(image_url)
+        response = requests.get(image_url, timeout=30)
+        print("-------")
         response.raise_for_status()  # Raise an error for bad responses
 
         # Save the downloaded image to a local file
