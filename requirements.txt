@@ -3,3 +3,4 @@ uvicorn
 paddlepaddle
 paddleocr
 pillow
+python-multipart

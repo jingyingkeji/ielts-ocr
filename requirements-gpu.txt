@@ -3,3 +3,4 @@ uvicorn
 paddlepaddle-gpu
 paddleocr
 pillow
+python-multipart
