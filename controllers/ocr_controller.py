@@ -18,13 +18,13 @@ os.makedirs("uploads/raw", exist_ok=True)
 
 async def process_url_ocr(image_url: str):
     try:
-        # Download the image from the URL
-        print(image_url)
         # Generate a unique file path
         file_location = f"uploads/raw/{uuid.uuid4()}.png"
 
-        # Download the image using wget
-        wget.download(image_url, file_location)
+        # Download the image using requests
+        response = requests.get(image_url, verify=False)
+        with open(file_location, 'wb') as f:
+            f.write(response.content)
         print(f"Image successfully downloaded to {file_location}")
 
         # Perform OCR on the saved image
