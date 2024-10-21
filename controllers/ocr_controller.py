@@ -42,7 +42,7 @@ async def process_url_ocr(image_url: str):
             print(f"format content {i}")
             raw_sentences.append(result[i][1][0])
         print(raw_sentences)
-        format_sentences = json.loads(format_content(raw_sentences))
+        format_sentences = json.loads(format_content(json.dumps(raw_sentences)))
 
         for i in range(len(result)):
             result[i][1] = format_content(format_sentences[i])
@@ -73,7 +73,7 @@ async def process_ocr(file):
             print(f"format content {i}")
             raw_sentences.append(result[i][1][0])
         print(raw_sentences)
-        format_sentences = json.loads(format_content(raw_sentences))
+        format_sentences = json.loads(format_content(json.dumps(raw_sentences)))
 
         for i in range(len(result)):
             result[i][1] = format_content(format_sentences[i])
