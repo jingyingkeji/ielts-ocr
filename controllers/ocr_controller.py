@@ -36,6 +36,7 @@ async def process_url_ocr(image_url: str):
 
         result = result[0]
         for i in range(len(result)):
+            print(f"format content {i}")
             result[i][1] = format_content(result[i][1][0])
 
         return {"result": result}

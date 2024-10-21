@@ -19,6 +19,7 @@ def format_content(content):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
+    print(response)
     response = response.json()
     return response["answer"]
 
