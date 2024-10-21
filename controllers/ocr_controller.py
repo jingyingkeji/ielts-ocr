@@ -5,7 +5,8 @@ import requests
 from fastapi import HTTPException
 from paddle import is_compiled_with_cuda
 from paddleocr import PaddleOCR
-from utils.ielts_content import format_content
+from ..utils.ielts_content import format_content
+
 
 # 检查是否支持GPU
 use_gpu = is_compiled_with_cuda()
