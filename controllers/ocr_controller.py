@@ -45,7 +45,7 @@ async def process_url_ocr(image_url: str):
         format_sentences = json.loads(format_content(json.dumps(raw_sentences)))
 
         for i in range(len(result)):
-            result[i][1] = format_content(format_sentences[i])
+            result[i][1] = format_sentences[i]
 
         # --------
 
@@ -76,7 +76,7 @@ async def process_ocr(file):
         format_sentences = json.loads(format_content(json.dumps(raw_sentences)))
 
         for i in range(len(result)):
-            result[i][1] = format_content(format_sentences[i])
+            result[i][1] = format_sentences[i]
 
         # --------
         # 删除临时文件
