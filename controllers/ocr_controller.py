@@ -1,13 +1,12 @@
-import json
 import os
 import uuid
-
 import requests
+
 from fastapi import HTTPException
 from paddle import is_compiled_with_cuda
 from paddleocr import PaddleOCR
-
 from utils.ielts_content import format_content
+
 
 # 检查是否支持GPU
 use_gpu = is_compiled_with_cuda()
@@ -35,22 +34,12 @@ async def process_url_ocr(image_url: str):
         # Optionally delete the temporary file
         os.remove(file_location)
 
-        # --------
         result = result[0]
-        raw_sentences = []
         for i in range(len(result)):
             print(f"format content {i}")
-            raw_sentences.append(result[i][1][0])
-        print(raw_sentences)
-        format_sentences = json.loads(format_content(json.dumps(raw_sentences)))
-        print(format_sentences)
-
-        print("result len:", len(result))
-        print("format len:", len(format_sentences))
-        for i in range(len(result)):
-            result[i][1] = format_sentences[i]
-
-        # --------
+            sencence = result[i][1][0]
+            if len(sencence) > 6:
+                result[i][1] = format_content(sencence)
 
         return {"result": result}
     except requests.exceptions.RequestException as e:
@@ -69,19 +58,10 @@ async def process_ocr(file):
         # 进行OCR识别
         result = ocr.ocr(file_location)
 
-        # --------
         result = result[0]
-        raw_sentences = []
         for i in range(len(result)):
-            print(f"format content {i}")
-            raw_sentences.append(result[i][1][0])
-        print(raw_sentences)
-        format_sentences = json.loads(format_content(json.dumps(raw_sentences)))
+            result[i][1] = format_content(result[i][1][0])
 
-        for i in range(len(result)):
-            result[i][1] = format_sentences[i]
-
-        # --------
         # 删除临时文件
         # os.remove(file_location)
 
