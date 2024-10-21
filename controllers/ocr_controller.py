@@ -44,6 +44,8 @@ async def process_url_ocr(image_url: str):
         print(raw_sentences)
         format_sentences = json.loads(format_content(json.dumps(raw_sentences)))
 
+        print("result len:", len(result))
+        print("format len:", len(format_sentences))
         for i in range(len(result)):
             result[i][1] = format_sentences[i]
 
