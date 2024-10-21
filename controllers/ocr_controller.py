@@ -1,7 +1,6 @@
 import os
 import uuid
 import requests
-import wget
 
 from fastapi import HTTPException
 from paddle import is_compiled_with_cuda
