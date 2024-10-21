@@ -5,6 +5,7 @@ import requests
 from fastapi import HTTPException
 from paddle import is_compiled_with_cuda
 from paddleocr import PaddleOCR
+from utils.ielts_content import format_content
 
 # 检查是否支持GPU
 use_gpu = is_compiled_with_cuda()
@@ -32,6 +33,10 @@ async def process_url_ocr(image_url: str):
         # Optionally delete the temporary file
         os.remove(file_location)
 
+        result = result[0]
+        for i in range(len(result)):
+            result[i][1] = format_content(result[i][1][0])
+
         return {"result": result}
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=400, detail=f"Error downloading image: {str(e)}")
@@ -48,6 +53,10 @@ async def process_ocr(file):
 
         # 进行OCR识别
         result = ocr.ocr(file_location)
+
+        result = result[0]
+        for i in range(len(result)):
+            result[i][1] = format_content(result[i][1][0])
 
         # 删除临时文件
         # os.remove(file_location)
