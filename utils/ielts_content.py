@@ -4,7 +4,7 @@ import requests
 
 
 def format_content(content):
-    url = "https://ai-kcs.51talk.com/v1/completion-messages"
+    url = "http://ai-kcs.51talk.com/v1/completion-messages"
 
     payload = json.dumps({
         "inputs": {
